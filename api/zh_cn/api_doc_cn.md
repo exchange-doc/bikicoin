@@ -1,4 +1,4 @@
-#  Bikicoin接口文档(English Docs)
+#  Bikicoin接口文档([English Docs](https://github.com/code-bikicoin/bikicoin/blob/master/api/us_en/api_doc_en.md))
 
 ## 1. open-api目录 (例：www.bikicoin.com/exchange-open-api)
 -   [调用demo](#open-api)

@@ -1,4 +1,4 @@
-#  Bikicoin Api Docs(中文简体文档)
+#  Bikicoin Api Docs([中文简体文档](https://github.com/code-bikicoin/bikicoin/blob/master/api/zh_cn/api_doc_cn.md))
 
 ## 1. open-api目录 (例：www.bikicoin.com/exchange-open-api)
 -   [调用demo](#open-api)
