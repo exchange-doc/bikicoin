@@ -1,84 +1,88 @@
-#  Bikicoin Api Docs([中文简体文档](https://github.com/code-bikicoin/bikicoin/blob/master/api/zh_cn/api_doc_cn.md))
+#  Bikicoin Api Docs(Chinese simplified document)
 
-## 1. open-api目录 (例：www.bikicoin.com/exchange-open-api)
--   [调用demo](#open-api)
--   [资产余额](#1)
--	[获取全部委托](#2)
--	[获取全部成交记录](#3)
--	[取消委托单](#4)
--	[根据币对取消全部委托单](#5)
--	[创建订单](#6)
--	[获取所有交易对行情](#7)
--	[获取K线数据](#8)
--	[获取当前行情](#9)
--	[获取行情成交记录](#10)
--	[获取各个币对的最新成交价](#11)
--	[查询买卖盘深度](#12)
--	[批量下单，同时批量撤回指定订单](#13)
--	[获取当前委托](#14)
--	[获取订单详情](#15)
--	[内部自成交接口-(saas专有)](#16)
--	[查询系统支持的所有交易对及精度](#17)
--	[获取用户资产以及充值记录](#18)
-## 2. ws-api目录  (例：wss://ws.bikicoin.com/kline-api/ws)
--   [调用demo](#ws-api)
--   [订阅-K线行情](#19)
--   [订阅-前24小时行情](#20)
--   [订阅-深度盘口（高频）](#21)
--   [订阅-深度盘口](#22)
--   [订阅-实时成交信息](#23)
--   [请求-K线历史数据](#24)
--   [请求-成交历史数据](#25)
--   [请求-首页24行情数据](#26)
+## 1. open-api Catalog (example：www.bikicoin.com/exchange-open-api)
+-   [invoking demo](#open-api)
+-   [Balance of the assets](#1)
+-	[Acquire full delegation](#2)
+-	[Obtain all transaction records](#3)
+-	[Cancellation of the order](#4)
+-	[Cancellation of all orders of attorney according to currency pair](#5)
+-	[Create order](#6)
+-	[Get all trading pairs quotations on the market](#7)
+-	[Getting K-line data](#8)
+-	[Get the current market quotations](#9)
+-	[Acquisition of Trading Records](#10)
+-	[Get the latest transaction price of each pair of currencies](#11)
+-	[Search the depth of buying and selling](#12)
+-	[Place orders in batches and withdraw designated orders in batches](#13)
+-	[Get the current delegation](#14)
+-	[Obtain order details](#15)
+-	[Internal Self-Transaction Interface-(saasProper)](#16)
+-	[All Transaction Pairs and Accuracy Supported by Query System](#17)
+-	[Get user assets and recharge records](#18)
+## 2. ws-api Catalog  (example：wss://ws.bikicoin.com/kline-api/ws)
+-   [invoking demo](#ws-api)
+-   [Subscription - K Line Market](#19)
+-   [Subscription - market quotations in the last 24 hours](#20)
+-   [Subscription - Deep Port (High Frequency)](#21)
+-   [Subscription - Deep Port](#22)
+-   [Subscription-Real-time Transaction Information](#23)
+-   [Request-K Line History Data](#24)
+-   [Request-transaction history data](#25)
+-   [Request - 24 Market Data on Home Page](#26)
 
 
 ---
-### <span id="1">资产余额</span>
+### <span id="1">Balance of assets</span>
 
-1. 接口地址: /open/api/user/account
-2. 接口说明: (get请求)资产余额
+1. Interface address: /open/api/user/account
+2. Interface specification: (get request)Balance of the assets
 
-|参数|	填写类型|	说明|
+
+|parameter|	Fill in type|	Explain|
 |--------|--------|--------|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |--------|--------|--------|
 |code|	0|	 |
-|msg|	"suc"|	code>0失败|
-|data|	{<br>"total_asset":432323.23,<br>"coin_list":[<br>{"coin":"btc","normal":32323.233,"locked":32323.233,"btcValuatin":112.33},<br>{"coin":"ltc","normal":32323.233,"locked":32323.233,"btcValuatin":112.33},<br>{"coin":"bch","normal":32323.233,"locked":32323.233,"btcValuatin":112.33},<br>]<br>}<br>|total_asset:总资产<br>normal:余额账户<br>locked：冻结账户<br>btcValuatin：BTC估值|
+|msg|	"suc"|	code>0fail|
+|data|	{<br>"total_asset":432323.23,<br>"coin_list":[<br>{"coin":"btc","normal":32323.233,"locked":32323.233,"btcValuatin":112.33},<br>{"coin":"ltc","normal":32323.233,"locked":32323.233,"btcValuatin":112.33},<br>{"coin":"bch","normal":32323.233,"locked":32323.233,"btcValuatin":112.33},<br>]<br>}<br>|total_asset:total assets<br>normal:Balance account<br>locked：Frozen accounts<br>btcValuatin：BTCValuation|
 ---
-### <span id="2">获取全部委托</span>
+### <span id="2">Acquire full delegation</span>
 
-1. 接口地址:/open/api/v2/all_order
-2. 接口说明:(get请求)获取全部委托
+1. Interface address:/open/api/v2/all_order
+2. Interface specification:(getrequest)Acquire full delegation
 
-* 旧接口 /open/api/all_order 仍保留,但已经不建议使用
+* Old interface/open/api/all_order It is still reserved, but not recommended
 
-* v2版本变化: 去掉了结果返回值中的tradeList成交记录,提升效率;如果需要单一订单的成交信息,可以使用 /open/api/order_info 接口单独去查
+* v2Version change: Remove from the result return value tradeListTransaction record,Enhance efficiency;If transaction information for a single order is required
 
-|参数|	填写类型|	说明|
+,you can use /open/api/order_info interface and check it
+
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|symbol|	必填|	市场标记，btcusdt，详情看下面|
-|startDate|	选填|	（新增）开始时间，精确到秒“yyyy-MM-dd mm:hh:ss”|
-|endDate|	选填|	（新增）结束时间，精确到秒“yyyy-MM-dd mm:hh:ss”|
-|pageSize|	选填|	页面大小|
-|page|	选填|	页码|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|symbol|	Must fill|	Market mark，btcusdt，See below for details|
+|startDate|	Selective filling|	（Added) Start time, accurate to seconds“yyyy-MM-dd mm:hh:ss”|
+|endDate|	Selective filling|	（Added) End time, accurate to seconds“yyyy-MM-dd mm:hh:ss”|
+|pageSize|	Selective filling|	Page size|
+|page|	Selective filling|	Page number|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
 
-|字段|	实例|	解释|
+Return value:
+
+|field|	Example|	explain|
 |-----|------|---------|
 |code|	0|	 |
-|msg|	"suc"|	code>0失败|
-|data|	如下:|
+|msg|	"suc"|	code>0fail|
+|data|	as follows:|
 ```
 {
     "count":10,
@@ -91,11 +95,11 @@
             "countCoin":"btc",
             "source":1,
             "type":1,
-            "side_msg":"买入",
+            "side_msg":"Purchase",
             "volume":"1.000",
             "price":"0.10000000",
             "source_msg":"WEB",
-            "status_msg":"完全成交",
+            "status_msg":"Full deal",
             "deal_volume":"1.00000000",
             "id":424,
             "remain_volume":"0.00000000",
@@ -110,11 +114,11 @@
             "countCoin":"btc",
             "source":1,
             "type":1,
-            "side_msg":"卖出",
+            "side_msg":"Sell out",
             "volume":"1.000",
             "price":"0.09900000",
             "source_msg":"WEB",
-            "status_msg":"完全成交",
+            "status_msg":"Full deal",
             "deal_volume":"1.00000000",
             "id":423,
             "remain_volume":"0.00000000",
@@ -125,7 +129,7 @@
 }
 ```
 
-|虚拟币编号|xxx-cny|xxx-btc|xxx-usdt|
+|Virtual Currency Number|xxx-cny|xxx-btc|xxx-usdt|
 |----------|-------|-------|-------|
 |btc|	btccny|	-|	btcusdt|
 |eth|	ethcny|	ethbtc|	ethusdt|
@@ -135,30 +139,30 @@
 |usdt|	usdtcny|	-|	-|
 
 ---
-### <span id="3">获取全部成交记录</span>
+### <span id="3">Obtain all transaction records</span>
 
-1. 接口地址:/open/api/all_trade
-2. 接口说明:(get请求)获取全部成交记录
+1. Interface address:/open/api/all_trade
+2. Interface Description: (get request) Get all transaction records
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|symbol|	必填|	市场标记，btcusdt，详情看下面|
-|startDate|	选填|	（新增）开始时间，精确到秒“yyyy-MM-dd HH:mm:ss”|
-|endDate|	选填|	（新增）结束时间，精确到秒“yyyy-MM-dd HH:mm:ss”|
-|pageSize|	选填|	页面大小|
-|page|	选填|	页码|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sort|	选填|	1表示倒序|
-|sign|	必填|	签名|
+|symbol|	Must fill|	Market mark，btcusdt，See below for details|
+|startDate|	Selective filling|	(Added) Start time, accurate to seconds“yyyy-MM-dd HH:mm:ss”|
+|endDate|	Selective filling|	(Added) End time, accurate to seconds“yyyy-MM-dd HH:mm:ss”|
+|pageSize|	Selective filling|	Page size|
+|page|	Selective filling|	Page number|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sort|	Selective filling|	1Representing reverse order|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |-----|------|---------|
 |code|	0|	 |
-|msg|	"suc"|	code>0失败|
-| data|	如下:|
+|msg|	"suc"|	code>0fail|
+| data|	as follows:|
 ```
 {
     "count":22,
@@ -172,7 +176,7 @@
             "ctime":1510996571195,
             "deal_price":"0.10000000",
             "id":306,
-            "type":"买入",
+            "type":"Purchase",
             "bid_id":1001,
             "ask_id":1002,
             "bid_user_id":10001,
@@ -188,7 +192,7 @@
             "ctime":1510996571190,
             "deal_price":"0.08500000",
             "id":305,
-            "type":"买入",
+            "type":"Purchase",
             "bid_id":1001,
             "ask_id":1002,
             "bid_user_id":10001,
@@ -203,7 +207,7 @@
             "ctime":1510995560344,
             "deal_price":"0.00100000",
             "id":291,
-            "type":"买入",
+            "type":"Purchase",
             "bid_id":1001,
             "ask_id":1002,
             "bid_user_id":10001,
@@ -212,7 +216,7 @@
     ]
 }
 ```
-|虚拟币编号|xxx-cny|xxx-btc|xxx-usdt|
+|Virtual Currency Number|xxx-cny|xxx-btc|xxx-usdt|
 |----------|-------|-------|-------|
 |btc|	btccny|	-|	btcusdt|
 |eth|	ethcny|	ethbtc|	ethusdt|
@@ -223,28 +227,28 @@
 
 
 ---
-###  <span id="4">取消委托单</span>
+###  <span id="4">Cancellation of the order</span>
 
-1. 接口地址:/open/api/cancel_order
-2. 接口说明:(post请求)取消委托单
+1. Interface address:/open/api/cancel_order
+2. Interface specification:(post Request) Cancellation of the Power of Attorney
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|order_id|	必填|	订单ID|
-|symbol|	必填|	市场标记，ethbtc，详情看下面|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|order_id|	Must fill|	OrderID|
+|symbol|	Must fill|	Market mark，ethbtc，See below for details|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|------------------|
 |code	|0	 |
-|msg|	"suc"|	code>0失败|
+|msg|	"suc"|	code>0fail|
 |data|	“”|
 
-|虚拟币编号|xxx-cny（xxx101）|xxx-btc（xxx201）|
+|Virtual Currency Number|xxx-cny（xxx101）|xxx-btc（xxx201）|
 |------------|--------|----------|
 |btc|	btccny|	-|
 |eth|	ethcny|	ethbtc|
@@ -253,28 +257,28 @@
 |etc|	etccny|	etcbtc|
 
 ---
-###  <span id="5">根据币对取消全部委托单</span>
+###  <span id="5">Cancellation of all orders of attorney according to currency pair</span>
 
-1. 接口地址:/open/api/cancel_order_all
-2. 接口说明:(post请求)根据币对取消全部委托单（最多取消两千条，多余两千请循环撤销）
+1. Interface address:/open/api/cancel_order_all
+2. Interface specification:(postrequest)Cancellation of all orders of attorney according to currency pair（Up to 2,000 cancellations, more than 2,000 please revoke）
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|symbol|	必填|	市场标记，ethbtc，详情看下面|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|symbol|	Must fill|	Market mark，ethbtc，See below for details|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段	|实例	|解释|
+|field	|Example	|explain|
 |------------|--------|--------------|
 |code	|0	|
-|msg	|"suc"	|code>0失败|
+|msg	|"suc"	|code>0fail|
 |data	|“”|
 
  
-|虚拟币编号|xxx-cny（xxx101）|xxx-btc（xxx201）|
+|Virtual Currency Number|xxx-cny（xxx101）|xxx-btc（xxx201）|
 |------------|-----------|------------|
 |btc|	btccny|	-|
 |eth|	ethcny|	ethbtc|
@@ -283,33 +287,33 @@
 |etc|	etccny|	etcbtc|
 
 ---
-### <span id="6">创建订单</span>
+### <span id="6">Create order</span>
 
 
-1. 接口地址:/open/api/create_order
-2. 接口说明:(post请求)创建订单
+1. Interface address:/open/api/create_order
+2. Interface specification:(post Request) Create an order
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|side|	必填|	买卖方向BUY、SELL|
-|type|	必填|	挂单类型，1:限价委托、2:市价委托|
-|volume| 	必填|	购买数量（多义，复用字段）<br>type=1:表示买卖数量<br>type=2:买则表示总价格，卖表示总个数<br>买卖限制user/me-用户信息|
-|price|	选填|	委托单价：type=2：不需要此参数|
-|symbol|	必填|	市场标记，ethbtc|
-|fee_is_user_exchange_coin|	选填|	（冗余字段，忽略）0，当交易所有平台币时，此参数表示是否使用用平台币支付手续费，0否，1是|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|side|	Must fill|	Direction of businessBUY、SELL|
+|type|	Must fill|	Type of list，1:limit order、2:market order|
+|volume| 	Must fill|	Purchase quantity（Polysemy, multiplexing fields）<br>type=1:Represents the quantity of sales and purchases<br>type=2:Buy means the total price，Selling represents the total number<br>Trading restrictions user/me-User information|
+|price|	Selective filling|	Authorized unit price：type=2：No need for this parameter|
+|symbol|	Must fill|	Market mark，ethbtc|
+|fee_is_user_exchange_coin|	Selective filling|	（Redundant fields, ignored）0，When the exchange has the platform currency, this parameter indicates whether to use the platform currency to pay the handling fee, 0 no, 1 yes.|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |-----|------|---------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	{"order_id":34343}|成功返回交易ID|
+|msg|	"suc"|	code>0fail|
+|data|	{"order_id":34343}|Successful return to the transactionID|
 
-|虚拟币编号|xxx-cny（xxx101）|xxx-btc（xxx201）|
+|Virtual Currency Number|xxx-cny（xxx101）|xxx-btc（xxx201）|
 |------------|------------|------------|
 |btc|	btccny|	-|
 |eth|	ethcny|	ethbtc|
@@ -318,18 +322,18 @@
 |etc|	etccny|	etcbtc|
 
 ---
-###  <span id="7">获取所有交易对行情</span>
-1. 接口地址:/open/api/get_allticker
-2. 接口说明:(get请求)获取所有交易对行情
+###  <span id="7">Get all trading pairs quotations on the market</span>
+1. Interface address:/open/api/get_allticker
+2. Interface specification:(get Request) Get all trading pairs quotations on the market 
 
-* 该接口不进行签名校验
-* 参数:无
+* This interface does not perform signature verification
+* Parameter: None
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|-----------------------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	如下：|返回值说明<br>date: 返回数据时服务器时间 <br>symbol: 交易对（交易对1(base)简称_交易对2(quote)简称） <br>buy: 买一价 <br>high: 最高价 <br>last: 最新成交价 <br>low: 最低价 <br>sell: 卖一价 <br>vol: 成交量(最近的24小时)<br>rose:涨跌幅|
+|msg|	"suc"|	code>0fail|
+|data|	as follows：|Return Value Description<br>date: Server time when data is returned <br>symbol: Transaction pairs（Transaction pairs1(base)Abbreviation_Transaction pairs2(quote)Abbreviation） <br>buy: Buy one price <br>high: Highest price <br>last: Latest Transaction Price <br>low: Minimum price <br>sell: Selling price <br>vol: Volume (latest 24 hours)<br>rose:Ups and downs|
 ```
 {
    "date": 1534335607859,
@@ -392,20 +396,20 @@
 ```
 
 ---
-### <span id="8">获取K线数据</span>
+### <span id="8">Getting K-line data</span>
 
 
-1. 接口地址:/open/api/get_records
-2. 接口说明:(get请求)获取K线数据
+1. Interface address:/open/api/get_records
+2. Interface specification:(get request)Getting K-line data
 
-* 该接口不进行签名校验
+* This interface does not perform signature verification
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|symbol|	必填|	市场标记，bchbtc，详情看下面|
-|period|	必填|	单位为分钟，比喻1分钟则为1，一天则为1440|
+|symbol|	Must fill|	Market mark，bchbtc，See below for details|
+|period|	Must fill|	In minutes，The analogy is 1 in a minute，One day is1440|
 
-|虚拟币编号|xxx-cny|xxx-btc|xxx-usdt|
+|Virtual Currency Number|xxx-cny|xxx-btc|xxx-usdt|
 |------------|-----------|----------|----------|
 |bch|	bcccny|	bchbtc|	bchusdt|
 |btc|	btccny|	-|	btcusdt|
@@ -413,23 +417,24 @@
 |eth|	ethcny|	ethbtc|	ethusdt|
 |ltc|	ltccny|	ltcbtc|	ltcusdt|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|-----------|----------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	如下：|
+|msg|	"suc"|	code>0fail|
+|data|	as follows：|
 
 ```
 [
         [
-            1514445780,  //时间戳
-            1.12,        //开盘价
-            1.12,        //最高
-            1.12,        //最低
-            1.12,        //收盘价
-            0            //成交量
+            1514445780,  //time stamp
+            1.12,        //Opening price
+            1.12,        //Highest
+            1.12,        //minimum
+            1.12,        //Closing price
+            0            //volume
+
         ],
         [
             1514445840,
@@ -452,38 +457,38 @@
 
 
 ---
-###  <span id="9">获取当前行情</span>
+###  <span id="9">Get the current market quotations</span>
 
 
-1. 接口地址:/open/api/get_ticker
-2. 接口说明:(get请求)获取当前行情
+1. Interface address:/open/api/get_ticker
+2. Interface specification:(get Request) to get the current market quotations 
 
-* 该接口不进行签名校验
+* This interface does not perform signature verification
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|symbol|	必填|	市场标记，btcusdt，详情看下面|
+|symbol|	Must fill|	Market mark，btcusdt，See below for details|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0	| 
-|msg|	"suc"|	code>0失败|
-|data|	如下：|
+|msg|	"suc"|	code>0fail|
+|data|	as follows：|
 ```
 {
-    "high": 1,//最高值
-    "vol": 10232.26315789,//交易量
-    "last": 173.60263169,//最新成交价
-    "low": 0.01,//最低值
-    "buy": "0.01000000",//买一价
-    "sell": "1.12345680",//卖一价
-    "rose": -0.44564773,//涨跌幅
+    "high": 1,//Maximum value
+    "vol": 10232.26315789,//Trading volume
+    "last": 173.60263169,//Latest Transaction Price
+    "low": 0.01,//Minimum value
+    "buy": "0.01000000",//Buy one price
+    "sell": "1.12345680",//Selling price
+    "rose": -0.44564773,//Ups and downs
     "time": 1514448473626
 }
 ```
-|虚拟币编号|xxx-cny|xxx-btc|xxx-usdt|
+|Virtual Currency Number|xxx-cny|xxx-btc|xxx-usdt|
 |------------|--------|----------|----------|
 |bcc|	bcccny|	bccbtc|	bccusdt|
 |btc|	btccny|	-|	btcusdt|
@@ -496,31 +501,31 @@
 
 
 ---
-### <span id="10">获取行情成交记录</span>
+### <span id="10">Acquisition of Trading Records</span>
 
-1. 接口地址:/open/api/get_trades
-2. 接口说明:(get请求)获取行情成交记录
+1. Interface address:/open/api/get_trades
+2. Interface specification:(get Request) to obtain market transaction records
 
-* 该接口不进行签名校验
+* This interface does not perform signature verification
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|symbol|	必填|	市场标记，bchbtc，详情看下面|
+|symbol|	Must fill|	Market mark，bchbtc，See below for details|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0	| 
-|msg|	"suc"|	code>0失败|
-|data|	如下：|
+|msg|	"suc"|	code>0fail|
+|data|	as follows：|
 ```
 [
         {
-            "amount": 0.55,//成交量
-            "price": 0.18519949,//成交价
+            "amount": 0.55,//volume
+            "price": 0.18519949,//Transaction price
             "id": 447121,
-            "type": "buy"//买卖type，买为buy，买sell
+            "type": "buy"//Businesstype，Buy asbuy，buysell
         },
         {
             "amount": 16.45,
@@ -542,7 +547,7 @@
         }
 ]
 ```
-|虚拟币编号|xxx-cny|xxx-btc|xxx-usdt|
+|Virtual Currency Number|xxx-cny|xxx-btc|xxx-usdt|
 |------------|--------|-----------|----------|
 |bch|	bcccny|	bchbtc|	bchusdt|
 |btc|	btccny|	-|	btcusdt|
@@ -556,27 +561,27 @@
 
 
 ---
-###  <span id="11">获取各个币对的最新成交价</span>
+###  <span id="11">Get the latest transaction price of each pair of currencies</span>
 
 
-1. 接口地址:/open/api/market
-2. 接口说明:(get请求)获取各个币对的最新成交价
+1. Interface address:/open/api/market
+2. Interface specification:(getRequest) Get the latest transaction price of each pair of currencies
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
+|msg|	"suc"|	code>0fail|
 |data|	{"btcusdt":15000,"ethusdt":800}|
 
-|虚拟币编号|xxx-cny|xxx-btc|xxx-usdt|
+|Virtual Currency Number|xxx-cny|xxx-btc|xxx-usdt|
 |------------|--------|----------|----------|
 |btc|	btccny|	-|	btcusdt|
 |eth|	ethcny|	ethbtc|	ethusdt|
@@ -586,37 +591,37 @@
 
 
 ---
-###  <span id="12">查询买卖盘深度</span>
+###  <span id="12">Search the depth of buying and selling</span>
 
 
-1. 接口地址:/open/api/market_dept
-2. 接口说明:(get请求)查询买卖盘深度
+1. Interface address:/open/api/market_dept
+2. Interface specification:(getrequest)Search the depth of buying and selling
 
-* 该接口不进行签名校验
+* This interface does not perform signature verification
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|-----------------------------|
-|symbol	|必填|	市场标记，ethbtc，详情看下面|
-|type|	必填|	深度类型，step0, step1, step2（合并深度0-2）；step0时，精度最高|
+|symbol	|Must fill|	Market mark，ethbtc，See below for details|
+|type|	Must fill|	Depth type，step0, step1, step2（Merger depth0-2）；step0time，The highest accuracy|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	如下：|
+|msg|	"suc"|	code>0fail|
+|data|	as follows：|
 ```
 {  
     "tick":{
-        "asks":[//卖盘
+        "asks":[//Selling
             {22112.22,0.9332},
             {22112.21,0.2},
             {22112.21,0.2},
             {22112.21,0.2},
             {22112.21,0.2},
         ],
-        "bids":[//买盘
+        "bids":[//Bid
             {22111.22,0.9332},
             {22111.21,0.2},
             {22112.21,0.2},
@@ -631,62 +636,62 @@
 
 
 ---
-### <span id="13">批量下单，同时批量撤回指定订单</span>
+### <span id="13">Batch order，Simultaneous bulk withdrawal of designated orders</span>
 
 
-1. 接口地址:/open/api/mass_replace
-2. 接口说明:(post请求)批量下单，同时批量撤回指定订单
+1. Interface address:/open/api/mass_replace
+2. Interface specification:(postrequest)Place orders in batches and withdraw designated orders in batches
 
-* mass_place是需要发送到系统的一批限价订单，每次最多100条
-* mass_cancel是需要撤回的一批订单,每次最多100条
+* mass_placeIt's a batch of limited price orders that need to be sent to the system, up to 100 at a time
+* mass_cancelIt's a batch of orders that need to be withdrawn, up to 100 at a time
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|--------------------------------------|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
-|symbol|	必填|	币种 ，例 btcusdt|
-|mass_cancel|	选填|	[1234,234....] 撤单参数，订单id|
-|mass_place|	选填|	[{side:"BUY",type:"1",volume:"0.01",price:"6400",fee_is_user_exchange_coin:"0"}, {}, …]<br>含义：<br>symbol:币种，例btcusdt<br>mass_place:下单参数。side：方向（买卖方向BUY、SELL），<br>--------------------------------type：类型（1:限价委托、2:市价委托）<br>--------------------------------volume：购买数量（多义，复用字段） type=1:表示买卖数量type=2:买则表示总价格，卖表示总个数<br>--------------------------------price：委托单价：type=2：不需要此参数<br>--------------------------------fee_is_user_exchange_coin：(冗余字段)当交易所有平台币时，此参数表示是否使用用平台币支付手续费，0否，1是|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
+|symbol|	Must fill|	currency ，example btcusdt|
+|mass_cancel|	Selective filling|	[1234,234....] Withdrawal parameters，Orderid|
+|mass_place|	Selective filling|	[{side:"BUY",type:"1",volume:"0.01",price:"6400",fee_is_user_exchange_coin:"0"}, {}, …]<br>Meaning：<br>symbol:currency，example btcusdt<br>mass_place:Order parameter。side：direction（Direction of businessBUY、SELL），<br>--------------------------------type：type（1:limit order、2:market order）<br>--------------------------------volume：Purchase quantity（Polysemy，Multiplex field） type=1:Represents the quantity of sales and purchasestype=2:Buy means the total price，Selling represents the total number<br>--------------------------------price：Authorized unit price：type=2：No need for this parameter<br>--------------------------------fee_is_user_exchange_coin：(Redundant fields) When the exchange has a platform currency，This parameter indicates whether to use platform currency to pay handling fee, 0 no, 1 yes.|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	"mass_place": [{"order_id":"1234","code":"0", "msg":"suc"}，...]<br>"mass_cancel": [{"order_id":"1234","code":"0", "msg":"suc"}，.......]|下单返回：订单id，状态码，成功或失败信息。<br>撤单返回：订单id，状态码，成功或失败信息<br>0表示成功。|
+|msg|	"suc"|	code>0fail|
+|data|	"mass_place": [{"order_id":"1234","code":"0", "msg":"suc"}，...]<br>"mass_cancel": [{"order_id":"1234","code":"0", "msg":"suc"}，.......]|Order return：Orderid，Status code，Success or Failure Information。<br>Withdrawal of returns：Orderid，Status code，c<br>0Express success。|
 
 
 
 
 ---
-### <span id="14">获取当前委托</span>
+### <span id="14">Get the current delegation</span>
 
 
-1. 接口地址:/open/api/v2/new_order
-2. 接口说明:(get请求)获取当前委托（包括未成交和正在成交的委托）
+1. Interface address:/open/api/v2/new_order
+2. Interface specification:(getrequest)Get the current delegation（Including uncompleted and ongoing commissions）
 
-* 旧接口 /open/api/new_order 仍保留,但已经不建议使用
+* Old interface /open/api/new_order It is still reserved, but not recommended
 
-* v2版本变化: 去掉了结果返回值中的tradeList成交记录,提升效率;如果需要单一订单的成交信息,可以使用 /open/api/order_info 接口单独去查
+* v2Version change: Remove the tradeList transaction record from the result return value to improve efficiency;If you need transaction information for a single order, you can use /open/api/order_info interface and check it
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|--------------------------------------|
-|symbo|l	必填|	市场标记，btcusdt，详情看下面|
-|pageSize|	选填|	页面大小|
-|page|	选填|	页码|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|symbo|l	Must fill|	Market mark，btcusdt，See below for details|
+|pageSize|	Selective filling|	Page size|
+|page|	Selective filling|	Page number|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	如下:|订单状态(status)说明：<br>INIT(0,"初始订单，未成交未进入盘口"),<br>NEW_(1,"新订单，未成交进入盘口"),<br>FILLED(2,"完全成交"),<br>PART_FILLED(3,"部分成交"),<br>CANCELED(4,"已撤单"),<br>PENDING_CANCEL(5,"待撤单"),<br>EXPIRED(6,"异常订单");|
+|msg|	"suc"|	code>0fail|
+|data|	as follows:|Order status(status)Explain：<br>INIT(0,"Initial order，No deal has not entered the handicap"),<br>NEW_(1,"New order，Unfinished business enters the market"),<br>FILLED(2,"Full deal"),<br>PART_FILLED(3,"Partial transaction"),<br>CANCELED(4,"Withdrawal of documents"),<br>PENDING_CANCEL(5,"Withdrawal of order"),<br>EXPIRED(6,"Abnormal order");|
 ```
 {
     "count":10,
@@ -699,11 +704,11 @@
             "countCoin":"btc",
             "source":1,
             "type":1,
-            "side_msg":"买入",
+            "side_msg":"Purchase",
             "volume":"1.000",
             "price":"0.10000000",
             "source_msg":"WEB",
-            "status_msg":"完全成交",
+            "status_msg":"Full deal",
             "deal_volume":"1.00000000",
             "id":424,
             "remain_volume":"0.00000000",
@@ -718,11 +723,11 @@
             "countCoin":"btc",
             "source":1,
             "type":1,
-            "side_msg":"卖出",
+            "side_msg":"Sell out",
             "volume":"1.000",
             "price":"0.09900000",
             "source_msg":"WEB",
-            "status_msg":"完全成交",
+            "status_msg":"Full deal",
             "deal_volume":"1.00000000",
             "id":423,
             "remain_volume":"0.00000000",
@@ -732,44 +737,44 @@
     ]
 }
 ```
-|虚拟币编号|xxx-cny|xxx-btc|xxx-usdt|
+|Virtual Currency Number|xxx-cny|xxx-btc|xxx-usdt|
 |------------|--------|----------|----------|
 |btc|	btccny|	-|	btcusdt|
 |eth|	ethcny|	ethbtc|	ethusdt|
 |ltc|	ltccny|	ltcbtc|	ltcusdt|
 |bcc|	bcccny|	bccbtc|	bccusdt|
 |etc|	etccny|	etcbtc|	etcusdt|
-|usdt|	usdtcny|	-|	-/web/new_order-获取当前委托|
+|usdt|	usdtcny|	-|	-/web/new_order-Get the current delegate|
 
 
 
 ---
-###  <span id="15">获取订单详情</span>
+###  <span id="15">Obtain order details</span>
 
-1. 接口地址:/open/api/order_info
-2. 接口说明:(get请求)获取订单详情
+1. Interface address:/open/api/order_info
+2. Interface specification:(getrequest)Obtain order details
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|--------------------------------------|
-|order_id|	必填|	订单ID|
-|symbol|	必填|	市场标记，ethbtc，详情看下面|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|order_id|	Must fill|	Order ID|
+|symbol|	Must fill|	Market mark，ethbtc，See below for details|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	如下:|
+|msg|	"suc"|	code>0fail|
+|data|	as follows:|
 ```
 {
     "order_info":{
         "id":343,
         "side":"sell",
-        "side_msg":"卖出",
+        "side_msg":"Sell out",
         "created_at":"09-22 12:22",
         "price":222.33,
         "volume":222.33,
@@ -803,33 +808,33 @@
 
 
 ---
-###  <span id="16">内部自成交接口-(saas专有)</span>
+###  <span id="16">Internal Self-Transaction Interface-(saasProper)</span>
 
 
-1. 接口地址:/open/api/self_trade
-2. 接口说明:(post请求)内部自成交接口-(saas专有)
+1. Interface address:/open/api/self_trade
+2. Interface specification:(post request)Internal Self-Transaction Interface-(saasProper)
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|--------------------------------------|
-|side|	必填|	买卖方向BUY、SELL|
-|type|	必填|	挂单类型，1:限价委托|
-|volume| 	必填|	购买数量（多义，复用字段）<br>type=1:表示买卖数量<br>买卖限制user/me-用户信息|
-|price|	选填|	 
-|symbol|	必填|	市场标记，ethbtc|
-|fee_is_user_exchange_coin|	选填|	0，当交易所有平台币时，此参数表示是否使用用平台币支付手续费，0否，1是|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|side|	Must fill|	Direction of business BUY、SELL|
+|type|	Must fill|	Type of list，1:limit order|
+|volume| 	Must fill|	Buy Quantity (Polysemy, Multiplexing Fields)<br>type=1:Represents the quantity of sales and purchases<br>Trading restrictionsuser/me-User information|
+|price|	Selective filling|	 
+|symbol|	Must fill|	Market mark，ethbtc|
+|fee_is_user_exchange_coin|	Selective filling|	0，When the exchange has the platform currency, this parameter indicates whether to use the platform currency to pay the handling fee, 0 no, 1 yes|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	{"order_id":34343}|成功返回交易ID|
+|msg|	"suc"|	code>0fail|
+|data|	{"order_id":34343}|Successful return to the transactionID|
 
-|虚拟币编号|xxx-cny（xxx101）|xxx-btc（xxx201）|
+|Virtual Currency Number|xxx-cny（xxx101）|xxx-btc（xxx201）|
 |------------|--------|-----------|
 |bcc|	bcccny|	bccbtc|
 |btc|	btccny|	-|
@@ -839,21 +844,21 @@
 
 
 ---
-### <span id="17">查询系统支持的所有交易对及精度</span>
+### <span id="17">All Transaction Pairs and Accuracy Supported by Query System</span>
 
 
-1. 接口地址:/open/api/common/symbols
-2. 接口说明:(get请求)查询系统支持的所有交易对及精度
+1. Interface address:/open/api/common/symbols
+2. Interface specification:(get request) query all transaction pairs and accuracy supported by the system
 
-* 参数:无
+* Parameter: None
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|---------------|
 |code|	0|	 
-|msg|	"suc"|	code>0失败|
-|data|	如下：|symbol 交易对<br>base_coin 基础币种<br>count_coin 计价货币<br>price_precision 价格精度位数（0为个位）<br>amount_precision 数量精度位数（0为个位）|
+|msg|	"suc"|	code>0fail|
+|data|	as follows：|symbol Transaction pairs<br>base_coin Base currency<br>count_coin Money of Account<br>price_precision Price Precision Number（0 is a single digit）<br>amount_precision Quantitative precision digits (0 is a single digit)|
 ```
 {
 "code": "0",
@@ -907,28 +912,28 @@
 
 
 ---
-###  <span id="18">获取用户资产以及充值记录</span>
+###  <span id="18">Get user assets and recharge records</span>
 
 
-1. 接口地址:/open/api/user_balance_info
-2. 接口说明:(post请求)获取用户资产以及充值记录
+1. Interface address:/open/api/user_balance_info
+2. Interface Description:(postRequest) Get user assets and recharge records
 
-|参数|	填写类型|	说明|
+|parameter|	Fill in type|	Explain|
 |------------|--------|--------------------------------------|
-|uid|	选填|	用户uid（用户uid,mobile_number,email三者必须填其中一个）|
-|mobile_number|	选填|	查询的用户号码，手机号码或者邮箱|
-|email|	选填|	用户邮箱|
-|api_key|	必填|	api_key|
-|time|	必填|	时间戳|
-|sign|	必填|	签名|
+|uid|	Selective filling|	useruid（useruid,mobile_number,emailOne of the three must be filled in）|
+|mobile_number|	Selective filling|	Inquiry user number, mobile phone number or mailbox|
+|email|	Selective filling|	email|
+|api_key|	Must fill|	api_key|
+|time|	Must fill|	time stamp|
+|sign|	Must fill|	autograph|
 
-返回值:
+Return value:
 
-|字段|	实例|	解释|
+|field|	Example|	explain|
 |------------|--------|--------------------------------------------|
-|code|	0|“0” - > 成功<br>“100004” ->参数不合法<br>“100005” -> 签名错误<br>“100007” -> 非法IP<br>"110032" -> 用户无查询权限<br>“110020” -> 要查询的用户不存在|
-|msg|	"suc"|	code>0失败|
-|data|	如下：|balance_info 各个币种的资产信息<br>deposit_list 充值的流水信息|
+|code|	0|“0” - > Success<br>“100004” ->Illegal parameters<br>“100005” -> Signature error<br>“100007” -> illegalIP<br>"110032" -> Users do not have query privileges<br>“110020” -> The user to query does not exist|
+|msg|	"suc"|	code>0fail|
+|data|	as follows：|balance_info Asset information in various currencies<br>deposit_list Filling Pipeline Information|
 ```
 {
 "balance_info":[
@@ -951,62 +956,63 @@
 
 
 ---
-###  <span id="19">订阅-K线行情</span>
+###  <span id="19">Subscription - K Line Market</span>
 
-* 请求:
+* request:
 ```
-{"event":"sub","params":{"channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"自定义"}}
+{"event":"sub","params":{"channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"custom"}}
 ```
-* 返回订阅状态1次:
+* Return to subscription status once:
 ```
-{"event_rep":"subed","channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"原路返回","ts":1506584998239,"status":"ok"}
+{"event_rep":"subed","channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"Please Return by the Way You Came","ts":1506584998239,"status":"ok"}
 ```
-* 持续返回订阅消息:
+* Continue to return subscription messages:
 ```
 {
-    "channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]",//订阅的交易对行情$base$quote表示btckrw等
-    "ts":1506584998239,//请求时间
+    "channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]",//Subscription transactions versus market$base$quoteExpressbtckrwetc.
+
+    "ts":1506584998239,//Request time
     "tick":{
-        "id":1506602880,//时间刻度起始值
-        "amount":123.1221,//交易额
-        "vol":1212.12211,//交易量
-        "open":2233.22,//开盘价
-        "close":1221.11,//收盘价
-        "high":22322.22,//最高价
-        "low":2321.22//最低价
+        "id":1506602880,//Time scale starting value
+        "amount":123.1221,//A turnover
+        "vol":1212.12211,//Trading volume
+        "open":2233.22,//Opening price
+        "close":1221.11,//Closing price
+        "high":22322.22,//Highest price
+        "low":2321.22//Minimum price
     }
 }
 ```
 
 
 ---
-### <span id="20">订阅-前24小时行情</span>
+### <span id="20">Subscription - market quotations in the last 24 hours</span>
 
 
-* 请求:
+* request:
 ```
-{"event":"sub","params":{"channel":"market_$base$quote_ticker","cb_id":"自定义"}}
+{"event":"sub","params":{"channel":"market_$base$quote_ticker","cb_id":"custom"}}
 ```
-* 返回订阅状态1次:
+* Return to subscription status once:
 ```
-{"event_rep":"subed","channel":"market_$base$quote_ticker","cb_id":"原路返回","ts":1506584998239,"status":"ok","lower_frame":"0"} // lower_frame: 0 币对没下架、 1 币对下架
+{"event_rep":"subed","channel":"market_$base$quote_ticker","cb_id":"Please Return by the Way You Came","ts":1506584998239,"status":"ok","lower_frame":"0"} // lower_frame: 0 No coin pair off the shelf、 1 Coin pair
 
 ```
-* 持续返回订阅消息:
+* Continue to return subscription messages:
 ```
 {
-    "channel":"market_$base$quote_ticker",//订阅的交易对行情$base$quote表示btckrw等
-    "ts":1506584998239,//请求时间
+    "channel":"market_$base$quote_ticker",//Subscription transactions versus market$base$quoteExpress btckrw etc.
+    "ts":1506584998239,//Request time
     "tick":{
-        "id":1506584998,//冗余，无实际意义，时间戳
-        "amount":123.1221,//交易额
-        "vol":1212.12211,//交易量
-        "open":2233.22,//开盘价
-        "close":1221.11,//收盘价
-        "high":22322.22,//最高价
-        "low":2321.22,//最低价
-        "rose":-0.2922,//涨幅
-        "ts":1506584998239,//数据产生时间
+        "id":1506584998,//Redundancy, no practical significance, timestamp
+        "amount":123.1221,//A turnover
+        "vol":1212.12211,//Trading volume
+        "open":2233.22,//Opening price
+        "close":1221.11,//Closing price
+        "high":22322.22,//Highest price
+        "low":2321.22,//Minimum price
+        "rose":-0.2922,//Gain
+        "ts":1506584998239,//Data generation time
         "lower_frame":"0"
     }
 }
@@ -1014,31 +1020,31 @@
 
 
 ---
-###  <span id="21">订阅-深度盘口（高频）</span>
+###  <span id="21">Subscription - Deep Port (High Frequency)</span>
 
 
-* 请求:
+* request:
 ```
-{"event":"sub","params":{"channel":"market_$base$quote_depth_step[0-2]","cb_id":"自定义","asks":150,"bids":150}}
+{"event":"sub","params":{"channel":"market_$base$quote_depth_step[0-2]","cb_id":"custom","asks":150,"bids":150}}
 ```
-* 返回订阅状态1次:
+* Return to subscription status once:
 ```
-{"event_rep":"subed","channel":"market_$base$quote_depth_step[0-2]","cb_id":"原路返回","asks":150,"bids":150,"ts":1506584998239,"status":"ok"}
+{"event_rep":"subed","channel":"market_$base$quote_depth_step[0-2]","cb_id":"Please Return by the Way You Came","asks":150,"bids":150,"ts":1506584998239,"status":"ok"}
 ```
 
-* 注：第一次订阅成功会立刻返回一次全量数据， 另外server也会定期推个全量数据给前端  避免数据出问题
+* Note: The first successful subscription will immediately return a full amount of data, and the server will regularly push a full amount of data to the front-end to avoid data problems
 
-* 全量：前端直接替换原有盘口
+* Full quantity: the front end directly replaces the original disk outlet
 ```
 {
-    "channel":"market_$base$quote_depth_step[0-2]",//$base$quote表示btckrw等,深度有3个维度，0、1、2
-    "ts":1506584998239,//请求时间
+    "channel":"market_$base$quote_depth_step[0-2]",//$base$quoteExpressbtckrwetc.,Depth has three dimensions，0、1、2
+    "ts":1506584998239,//Request time
     "tick":{
-        "asks":[//卖盘
+        "asks":[//Selling
             [22112.22,0.9332],
             [22112.21,0.2],
         ],
-        "buys":[//买盘
+        "buys":[//Bid
             [22111.22,0.9332],
             [22111.21,0.2],
         ]
@@ -1046,44 +1052,44 @@
 }
 ```
 
-* 注： 增量盘口信息 前端只需要替换价格对应的数量即可， volume=0时删除， price与原有盘口某个价格段的price相等时更新volume,  新的price直接新增
+* Note: The front end of incremental inventory information only needs to replace the quantity corresponding to the price， volume=Delete at 0 o'clock， priceWith the original opening of a price segment price Equal-time updatevolume,  Direct addition of new price
 
-* 增量盘口信息（该盘口变化的价格段）
+* Direct addition of new price
 ```
 {
-    "channel":"market_$base$quote_depth_step[0-2]",//$base$quote表示btckrw等,深度有3个维度，0、1、2
-    "ts":1506584998239,//请求时间
+    "channel":"market_$base$quote_depth_step[0-2]",//$base$quoteExpressbtckrwetc.,Depth has 3 dimensions，0、1、2
+    "ts":1506584998239,//Request time
     "tick":{
-        "side": "asks", 买卖盘方向  asks： 卖盘  buys: 买盘  
-        "price" : 133.55,  盘口对应的某个价格段
-        "volume" : 44.22   价格段对应的数量
+        "side": "asks", Trading Direction  asks：Selling  buys: Bid  
+        "price" : 133.55,  A price segment corresponding to the opening
+        "volume" : 44.22   Quantity corresponding to price segment
     }
 }
 ```
 
 
 ---
-###  <span id="22">订阅-深度盘口</span>
+###  <span id="22">Subscription - Deep Port</span>
 
-* 请求:
+* request:
 ```
-{"event":"sub","params":{"channel":"market_$base$quote_depth_step[0-2]","cb_id":"自定义","asks":150,"bids":150}}
+{"event":"sub","params":{"channel":"market_$base$quote_depth_step[0-2]","cb_id":"custom","asks":150,"bids":150}}
 ```
-* 返回订阅状态1次:
+* Return to subscription status once:
 ```
-{"event_rep":"subed","channel":"market_$base$quote_depth_step[0-2]","cb_id":"原路返回","asks":150,"bids":150,"ts":1506584998239,"status":"ok"}
+{"event_rep":"subed","channel":"market_$base$quote_depth_step[0-2]","cb_id":"Please Return by the Way You Came","asks":150,"bids":150,"ts":1506584998239,"status":"ok"}
 ```
-* 持续返回订阅消息:
+* Continue to return subscription messages:
 ```
 {
-    "channel":"market_$base$quote_depth_step[0-2]",//$base$quote表示btckrw等,深度有3个维度，0、1、2
-    "ts":1506584998239,//请求时间
+    "channel":"market_$base$quote_depth_step[0-2]",//$base$quoteRepresents btckrw, etc.,Depth has 3 dimensions，0、1、2
+    "ts":1506584998239,//Request time
     "tick":{
-        "asks":[//卖盘
+        "asks":[//Selling
             [22112.22,0.9332],
             [22112.21,0.2]
         ],
-        "buys":[//买盘
+        "buys":[//Bid
             [22111.22,0.9332],
             [22111.21,0.2]
         ]
@@ -1092,41 +1098,41 @@
 ```
 
 ---
-### <span id="23">订阅-实时成交信息 </span>
+### <span id="23">Subscription-Real-time Transaction Information </span>
 
-* 请求:
+* request:
 ```
-{"event":"sub","params":{"channel":"market_$base$quote_trade_ticker","cb_id":"自定义"}}
+{"event":"sub","params":{"channel":"market_$base$quote_trade_ticker","cb_id":"custom"}}
 ```
-* 返回订阅状态1次:
+* Return to subscription status once:
 ```
-{"event_rep":"subed","channel":"market_$base$quote_trade_ticker","cb_id":"原路返回","ts":1506584998239,"status":"ok"}
+{"event_rep":"subed","channel":"market_$base$quote_trade_ticker","cb_id":"Please Return by the Way You Came","ts":1506584998239,"status":"ok"}
 ```
-* 持续返回订阅消息:
+* Continue to return subscription messages:
 ```
 {
-    "channel":"market_$base$quote_trade_ticker",//订阅的交易对行情$base$quote表示btckrw等
-    "ts":1506584998239,//请求时间
+    "channel":"market_$base$quote_trade_ticker",//Subscription transactions versus market$base$quoteExpressbtckrwetc.
+    "ts":1506584998239,//Request time
     "tick":{
-        "id":12121,//data中最大交易ID
-        "ts":1506584998239,//data中最大时间
+        "id":12121,//dataThe biggest deal ID
+        "ts":1506584998239,//dataThe biggest deal
         "data":[
             {
-                "id":12121,//交易ID
-                "side":"buy",//买卖方向buy,sell
-                "price":32.233,//单价
-                "vol":232,//数量
-                "amount":323,//总额
-                "ts":1506584998239,//数据产生时间
+                "id":12121,//transaction ID
+                "side":"buy",//Direction of business buy,sell
+                "price":32.233,//Unit Price
+                "vol":232,//Number
+                "amount":323,//Total
+                "ts":1506584998239,//Data generation time
                 "ds":'2017-09-10 23:12:21'
             },
             {
-                "id":12120,//交易ID
-                "side":"buy",//买卖方向buy,sell
-                "price":32.233,//单价
-                "vol":232,//数量
-                "amount":323,//总额
-                "ts":1506584998239,//数据产生时间
+                "id":12120,//Transaction ID
+                "side":"buy",//Direction of business buy,sell
+                "price":32.233,//Unit Price
+                "vol":232,//Number
+                "amount":323,//Total
+                "ts":1506584998239,//Data generation time
                 "ds":'2017-09-10 23:12:21'
             }
         ]
@@ -1137,71 +1143,73 @@
 
 
 ---
-### <span id="24">请求-K线历史数据</span>
+### <span id="24">Request-K Line History Data</span>
 
-* 增加请求参数endIdx，pageSize（最多300，默认300条数据）,如果endIdx为空，则返回最近300条历史数据
+* Increase request parameters endIdx，pageSize（Up to 300, default 300 data）,If endIdx is empty, the last 300 historical data are returned
 
-* 请求:
+* request:
 ```
-{"event":"req","params":{"channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"自定义","since":"1506602880"}}//since缺省时返回最新300条，有值时返回大于since的最多1小时数据，since有强校验，不能早于当前1小时  since取到59
+{"event":"req","params":{"channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"custom","since":"1506602880"}}//since The default is to return the latest 300, a return value greater than since for up to 1 hours of data, since has strong check, not earlier than the current 1 hours to 59 since```
+* Return a historical data:
 ```
-* 返回一次历史数据:
 ```
 {
-    "event_rep":"rep","channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"原路返回",
-    "since":"1506602880",//since缺省时返回最新300条，有值时返回大于since的最多1小时数据，since有强校验，不能早于当前1小时
-    "ts":1506584998239,//请求时间
-    "data":[//300条
+    "event_rep":"rep","channel":"market_$base$quote_kline_[1min/5min/15min/30min/60min/1day/1week/1month]","cb_id":"Please Return by the Way You Came",
+    "since":"1506602880",//since Return the latest 300 items by default, return the maximum 1 hour data larger than since when it has value, and since has strong check, not earlier than the current 1 hour.
+    "ts":1506584998239,//Request time
+    "data":[//300 article
         {
-            "id":1506602880,//时间刻度起始值
-            "amount":123.1221,//交易额
-            "vol":1212.12211,//交易量
-            "open":2233.22,//开盘价
-            "close":1221.11,//收盘价
-            "high":22322.22,//最高价
-            "low":2321.22//最低价
+            "id":1506602880,//Time scale starting value
+            "amount":123.1221,//A turnover
+            "vol":1212.12211,//Trading volume
+            "open":2233.22,//Opening price
+            "close":1221.11,//Closing price
+            "high":22322.22,//Highest price
+            "low":2321.22//Minimum price
         },
         {
-            "id":1506602880,//时间刻度起始值
-            "amount":123.1221,//交易额
-            "vol":1212.12211,//交易量
-            "open":2233.22,//开盘价
-            "close":1221.11,//收盘价
-            "high":22322.22,//最高价
-            "low":2321.22//最低价
+            "id":1506602880,//Time scale starting value
+            "amount":123.1221,//A turnover
+            "vol":1212.12211,//Trading volume
+            "open":2233.22,//Opening price
+            "close":1221.11,//Closing price
+            "high":22322.22,//Highest price
+            "low":2321.22//Minimum price
         }
     ]
 }
 ```
 
----
-### <span id="25">请求-成交历史数据 </span>
 
-* 请求:
+
+---
+### <span id="25">Request-transaction history data </span>
+
+* request:
 ```
-{"event":"req","params":{"channel":"market_$base$quote_trade_ticker","cb_id":"自定义","top":200}}
+{"event":"req","params":{"channel":"market_$base$quote_trade_ticker","cb_id":"custom","top":200}}
 ```
-* 直接返回成交信息:
+* Direct return of transaction information:
 ```
 {
-    "event_rep":"rep","channel":"market_$base$quote_trade_ticker","cb_id":"原路返回","ts":1506584998239,"status":"ok",
-    "top":200,//最大支持200
+    "event_rep":"rep","channel":"market_$base$quote_trade_ticker","cb_id":"Please Return by the Way You Came","ts":1506584998239,"status":"ok",
+    "top":200,//Maximum support 200
     "data":[
         {
-            "id":12121,//交易ID
-            "side":"buy",//买卖方向buy,sell
-            "price":32.233,//单价
-            "vol":232,//数量
-            "amount":323,//总额
-            "ts":1506584998239//数据产生时间
+            "id":12121,//Transaction ID
+            "side":"buy",//Direction of businessbuy,sell
+            "price":32.233,//Unit Price
+            "vol":232,//Number
+            "amount":323,//Total
+            "ts":1506584998239//Data generation time
         },
         {
-            "id":12120,//交易ID
-            "side":"buy",//买卖方向buy,sell
-            "price":32.233,//单价
-            "vol":232,//数量
-            "amount":323,//总额
-            "ts":1506584998239,//数据产生时间
+            "id":12120,//Transaction ID
+            "side":"buy",//Direction of business buy,sell
+            "price":32.233,//Unit Price
+            "vol":232,//Number
+            "amount":323,//Total
+            "ts":1506584998239,//Data generation time
             "ds":'2017-09-10 23:12:21'
         }
     ]
@@ -1210,13 +1218,13 @@
 
 
 ---
-### <span id="26">请求-首页24行情数据</span>
+### <span id="26">Request - 24 Market Data on Home Page-</span>
 
-* 请求方式:
+* Request mode:
 ```
 {"event":"req","params":{"channel":"review"}}
 ```
-* 返回数据示例:
+* Return an example of data:
 ```
 {
    event_rep: "rep",
@@ -1260,24 +1268,24 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-/** 4个变量，api_key,secret_key */ 
+/** 4 variables，api_key,secret_key */ 
  String api_key = "9750*****************65d1";
  String secret_key = "1c16******************2982";
 
- /** 封装需要签名的参数 */
+ /** Encapsulation of parameters requiring signature */
         TreeMap<String, String> params = new TreeMap<String, String>();
         params.put("api_key", api_key);
         params.put("time", new Date().getTime() + "");
-/** 拼接签名字符串，md5签名 */
+/** Splice signature string, MD5 signature */
         StringBuilder result = new StringBuilder();
         Set<Entry<String, String>> entrys = params.entrySet();
         for (Entry<String, String> param : entrys) {
-/** 去掉签名字段 */
+/** Remove the signature field */
             if (param.getKey().equals("sign")) {
                 continue;
             }
 
-/** 空参数不参与签名 */
+/** Empty parameters do not participate in signature */
             if (param.getValue() != null) {
                 result.append(param.getKey());
                 result.append(param.getValue().toString());
@@ -1287,16 +1295,16 @@ public class Main {
         String sign = getMD5(result.toString());
         params.put("sign", sign);
 
-/** http请求 */
+/** http request */
         String resultJson = get("https://www.bikicoin.com/exchange-open-api/open/api/get_trades?symbol=btcusdt", params);
         System.out.println(resultJson);
     }
 
     /**
-     * 通过post来提交数据，带参数的方法
+     * The method of submitting data with parameters by post
      *
-     * @param url    请求地址
-     * @param params 参数
+     * @param url    Request address
+     * @param params parameter
      * @return
      */
     public static String post(String url, Map<String, String> params) {
@@ -1304,7 +1312,7 @@ public class Main {
         try {
             HttpClient client = new HttpClient();
             PostMethod method = new PostMethod(url);
-//设定请求头的样式 
+//Setting the style of the request header 
             method.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
             if (params != null && params.size() > 0) {
                 for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -1324,10 +1332,10 @@ public class Main {
     }
 
     /**
-     * 通过get来提交数据，带参数的方法
+     * Method of submitting data with parameters by get
      *
-     * @param url    请求地址
-     * @param params 参数
+     * @param url    Request address
+     * @param params parameter
      * @return
      */
     public static String get(String url, Map<String, String> params) {
@@ -1348,7 +1356,7 @@ public class Main {
             HttpClient client = new HttpClient();
             System.out.println("url:::" + url);
             GetMethod method = new GetMethod(url);
-//设定请求头的样式 
+//Setting the style of the request header 
             method.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
             int code = client.executeMethod(method);
             if (code >= 200 && code < 300) {
@@ -1363,22 +1371,22 @@ public class Main {
     }
 
     /**
-     * 获取String的MD5值
+     * Get String's MD5 value
      *
-     * @param info 字符串
-     * @return 该字符串的MD5值
+     * @param info Character string
+     * @return The MD5 value of the string
      */
     public static String getMD5(String info) {
         try {
-//获取 MessageDigest 对象，参数为 MD5 字符串，表示这是一个 MD5 算法（其他还有 SHA1 算法等）： 
+//Gets the MessageDigest object with a parameter of MD5 string, indicating that this is an MD5 algorithm (and other SHA1 algorithms, etc.)： 
             MessageDigest md5 = MessageDigest.getInstance("MD5");
-//update(byte[])方法，输入原数据 
-//类似StringBuilder对象的append()方法，追加模式，属于一个累计更改的过程 
+//update(byte[])Method, input original data 
+//Similar StringBuilder Object append()Method, add mode, is a cumulative change process 
             md5.update(info.getBytes("UTF-8"));
-//digest()被调用后,MessageDigest对象就被重置，即不能连续再次调用该方法计算原数据的MD5值。可以手动调用reset()方法重置输入源。 
-//digest()返回值16位长度的哈希值，由byte[]承接 
+//digest()After being invoked, the MessageDigest object is reset, that means that, the method cannot be called again continuously to calculate the MD5 value of the original data.You can manually call the reset () method to reset the input source。 
+//Digest () Returns a 16-bit hash value, which is accepted by byte [] 
             byte[] md5Array = md5.digest();
-//byte[]通常我们会转化为十六进制的32位长度的字符串来使用,本文会介绍三种常用的转换方法 
+//byte[]Usually we convert it to a 32-bit hexadecimal string. This article introduces three common conversion methods. 
             return bytesToHex(md5Array);
         } catch (NoSuchAlgorithmException e) {
             return "";
@@ -1392,7 +1400,7 @@ public class Main {
         for (int i = 0; i < md5Array.length; i++) {
             int temp = 0xff & md5Array[i];
             String hexString = Integer.toHexString(temp);
-            if (hexString.length() == 1) {//如果是十六进制的0f，默认只显示f，此时要补上0
+            if (hexString.length() == 1) {//If it is hexadecimal 0f, only f is displayed by default, and then 0 is added
                 strBuilder.append("0").append(hexString);
             } else {
                 strBuilder.append(hexString);
@@ -1440,8 +1448,8 @@ import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ServerHandshake;
 
 /**
- * @author 鲫鱼哥 DateTime:2018年11月22日 下午9:25:20 
- * 建议使用的websocket client版本 
+ * @author Squid DateTime:November 22, 2018, 9:25:20 PM 
+ * Suggested use websocket client Edition 
  * <dependency> 
  * <groupId>org.java-websocket</groupId> 
  * <artifactId>Java-WebSocket</artifactId> 
@@ -1455,18 +1463,18 @@ public class WsTest {
         try {
 //wsurl 
             String url = "wss://ws.bikicoin.com/kline-api/ws";
-//历史数据请求参数 
+//Historical data request parameters 
             String reqParam = "{"event":"req","params":{"channel":"market_btcusdt_trade_ticker","cb_id":"btcusdt","top":150}}";
-//订阅参数 
+//Subscription parameters 
             String subParam = "{"event":"sub","params":{"channel":"market_btcusdt_trade_ticker","cb_id":"btcusdt","top":150}}";
 
-//初始化请求历史数据 
+//Initialization request history data 
             WebSocketUtils wsc = WebSocketUtils.executeWebSocket(url, reqParam);
 
-//订阅实时数据 
+//Subscribe to real-time data 
             wsc.send(subParam);
 
-//线程不结束，等待新的消息，www.bikicoin.com 一般一分钟左右会有新的成交返回
+//Thread does not end, waiting for new messages，www.bikicoin.com Generally, a new deal will return in about a minute
             while (true) {
                 Thread.sleep(1000);
             }
@@ -1494,23 +1502,23 @@ public class WsTest {
 
         @Override
         public void onOpen(ServerHandshake serverHandshake) {
-            System.out.println("链接已建立");
+            System.out.println("Links have been established");
 
         }
 
         @Override
         public void onMessage(String s) {
-            System.out.println("收到字符串消息");
+            System.out.println("Receive a string message");
         }
 
         @Override
         public void onClose(int i, String s, boolean b) {
-            System.out.println("链接已关闭");
+            System.out.println("Link closed");
         }
 
         @Override
         public void onError(Exception e) {
-            System.out.println("报错啦");
+            System.out.println("Wrong report");
         }
 
         @Override
@@ -1519,12 +1527,12 @@ public class WsTest {
                 String marketStr = byteBufferToString(socketBuffer);
                 String market = uncompress(marketStr).toLowerCase();
                 if (market.contains("ping")) {
-                    System.out.println("收到消息ping："+market);
+                    System.out.println("Receive messageping："+market);
                     String tmp = market.replace("ping", "pong");
                     wsclient.send(market.replace("ping", "pong"));
                 } else {
                     msg = market;
-                    System.out.println("收到消息："+msg);
+                    System.out.println("Receive message："+msg);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1566,7 +1574,7 @@ public class WsTest {
             return wsclient;
         }
 
-        // buffer 转String 
+        // buffer turn String 
         public String byteBufferToString(ByteBuffer buffer) {
             CharBuffer charBuffer = null;
             try {
@@ -1581,7 +1589,7 @@ public class WsTest {
             }
         }
 
-        // 解压缩 
+        // decompression 
         public String uncompress(String str) throws IOException {
             if (str == null || str.length() == 0) {
                 return str;
