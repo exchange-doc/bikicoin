@@ -1,6 +1,6 @@
 #  Bikicoin Api Docs(Chinese simplified document)
 
-## 1. open-api Catalog (example：www.bikicoin.com/exchange-open-api)
+## 1. open-api Catalog (example：https://api.bikicoin.com/open/api/common/symbols)
 -   [invoking demo](#open-api)
 -   [Balance of the assets](#1)
 -	[Acquire full delegation](#2)
@@ -1296,7 +1296,7 @@ public class Main {
         params.put("sign", sign);
 
 /** http request */
-        String resultJson = get("https://www.bikicoin.com/exchange-open-api/open/api/get_trades?symbol=btcusdt", params);
+        String resultJson = get("https://api.bikicoin.com/open/api/get_trades?symbol=btcusdt", params);
         System.out.println(resultJson);
     }
 
