@@ -1,38 +1,229 @@
-#  Bikicoin Api Docs(Chinese simplified document)
+#  Bikicoin-official-API-docs
 
-## 1. open-api Catalog (example：https://api.bikicoin.com/open/api/common/symbols)
--   [invoking demo](#open-api)
--   [Balance of the assets](#1)
--	[Acquire full delegation](#2)
--	[Obtain all transaction records](#3)
--	[Cancellation of the order](#4)
--	[Cancellation of all orders of attorney according to currency pair](#5)
--	[Create order](#6)
--	[Get all trading pairs quotations on the market](#7)
--	[Getting K-line data](#8)
--	[Get the current market quotations](#9)
--	[Acquisition of Trading Records](#10)
--	[Get the latest transaction price of each pair of currencies](#11)
--	[Search the depth of buying and selling](#12)
--	[Place orders in batches and withdraw designated orders in batches](#13)
--	[Get the current delegation](#14)
--	[Obtain order details](#15)
--	[Internal Self-Transaction Interface-(saasProper)](#16)
--	[All Transaction Pairs and Accuracy Supported by Query System](#17)
--	[Get user assets and recharge records](#18)
-## 2. ws-api Catalog  (example：wss://ws.bikicoin.com/kline-api/ws)
--   [invoking demo](#ws-api)
--   [Subscription - K Line Market](#19)
--   [Subscription - market quotations in the last 24 hours](#20)
--   [Subscription - Deep Port (High Frequency)](#21)
--   [Subscription - Deep Port](#22)
--   [Subscription-Real-time Transaction Information](#23)
--   [Request-K Line History Data](#24)
--   [Request-transaction history data](#25)
--   [Request - 24 Market Data on Home Page](#26)
-
+#### Official Documentation for the Bikicoin APIs and Streams([简体中文版文档](https://github.com/code-bikicoin/bikicoin/blob/master/api/zh_cn/api_doc_cn.md))
+- [Introduction](#Introduction)
+- [Getting Started](#startToUse)
+- [Encrypted Verification of API](#a1)
+    - [Generate an API Key](#a2)
+    - [Initiate a Request](#a3)
+    - [Signature](#a4)
+    - Select timestamp
+    - [Request Process](#a6)
+        - [Request](#a7)
+        - [Pagination](#a8)
+    - [Standards and Specification](#a9)
+        - [Timestamp](#b1)
+        - [For example](#b2)
+        - [Numbers](#b3)
+        - [Rate Limits REST API](#b4)
+- [Spot API Reference](#b5)
+  - [open-api](#b6) ([Java-Demo](#open-api))
+    -   [Balance of the assets](#1)
+    -	[Acquire full delegation](#2)
+    -	[Obtain all transaction records](#3)
+    -	[Cancellation of the order](#4)
+    -	[Cancellation of all orders of attorney according to currency pair](#5)
+    -	[Create order](#6)
+    -	[Get all trading pairs quotations on the market](#7)
+    -	[Getting K-line data](#8)
+    -	[Get the current market quotations](#9)
+    -	[Acquisition of Trading Records](#10)
+    -	[Get the latest transaction price of each pair of currencies](#11)
+    -	[Search the depth of buying and selling](#12)
+    -	[Place orders in batches and withdraw designated orders in batches](#13)
+    -	[Get the current delegation](#14)
+    -	[Obtain order details](#15)
+    -	[Internal Self-Transaction Interface-(saasProper)](#16)
+    -	[All Transaction Pairs and Accuracy Supported by Query System](#17)
+    -	[Get user assets and recharge records](#18)
+  - [ws-api](#b7) ([Java-Demo](#ws-api))
+    -   [Subscription - K Line Market](#19)
+    -   [Subscription - market quotations in the last 24 hours](#20)
+    -   [Subscription - Deep Port (High Frequency)](#21)
+    -   [Subscription - Deep Port](#22)
+    -   [Subscription-Real-time Transaction Information](#23)
+    -   [Request-K Line History Data](#24)
+    -   [Request-transaction history data](#25)
+    -   [Request - 24 Market Data on Home Page](#26)
 
 ---
+
+
+# <span id="Introduction">Introduction</span>
+
+Welcome to [BikiCoin](https://www.bikicoin.com/index) API document for developers.
+
+本文档提供了相关API的使用方法介绍。open-api包含了资产余额，获取全部委托，获取全部成交记录等接口，ws-api则提供了K线相关功能接口。
+
+---
+
+# <span id="startToUse">Getting Started</span>
+REST, a.k.a Respresntational State Transfer, is an architectural style that defines a set of constraints and properties based on HTTP. REST is known for its clear structure, readability, standardization and scalability. Its advantages are as follows:
+
+- Each URL represents one web resource in RESTful architecture.
+- Acting as a representation of resources between client and server.
+- Client is enabled to operate server-side resources with 4 HTTP requests - representational state transfer.
+
+Developers are recommended to use REST API to proceed spot trading and withdrawals.
+
+---
+
+
+# <span id="a1">Encrypted Verification of API</span>
+
+## <span id="a2">Generate an API Key</span>
+
+Before signing any request, you must generate an API key via [BikiCoin’s official website ](https://www.bikicoin.com/index)CoinMex’s official website 【User Center】- 【API】. After generating the key, there are three things you must bear in mind:
+
+- API Key
+ 
+- Secret Key
+ 
+- Passphrase
+
+API Key and Secret are randomly generated and provided, Passphrase is set by user.
+## <span id="a3">Initiate a Request</span>
+All REST requests must include the following headings:
+
+- ACCESS-KEY API Key as a string.
+- ACCESS-SIGN uses base64-encoded signatures (see Signed Messages).
+- ACCESS-TIMESTAMP is the timestamp of your request.header MUST be number of seconds since Unix Epoch in UTC. Decimal values are allowed.
+- ACCESS-PASSPHRASE is the password you specified when you generate the API key.
+- All requests should contain content like application/json and be valid JSON.
+
+## <span id="a4">Signature</span>
+The ACCESS-SIGN header is the output generated by using HMAC SHA256 to create the HMAC SHA256 using the BASE64 decoding secret key in the prehash string to generate timestamp + method + requestPath + "?" + queryString + body (where ‘+’ represents the string concatenation) and BASE64 encoded output. The timestamp value is the same as the ACCESS-TIMESTAMP header. This body is the request body string or omitted if there is no request body (usually the GET request). This method should be capitalized.
+
+- method 是请求方法(POST/GET/PUT/DELETE)，字母全部大写。
+- requestPath 是请求接口路径。
+- queryString GET请求中的查询字符串
+- body 是指请求主体的字符串，如果请求没有主体(通常为GET请求)则body可省略。
+ 
+**For example, if we sign the following parameters**
+
+```
+curl "https://api.bikicoin.com/api/v1/spot/ccex/orders?limit=100"   
+```
+- 获取获取深度信息，以 LTC-BTC 币对为例
+
+```
+Timestamp = 1540286290170 
+Method = "GET"
+requestPath = "/api/v1/spot/public/products/LTC-BTC/orderbook"
+queryString= "?size=100"
+```
+Generate the string to be signed
+
+```
+Message = '1540286290170GET/api/v1/spot/public/products/LTC-BTC/orderbook?size=100'  
+```
+
+- 下单，以 LTC-BTC 币对为例
+
+```
+Timestamp = 1540286476248 
+Method = "POST"
+requestPath = "/api/v1/spot/ccex/orders"
+body = {"code":"LTC_BTC","side":"buy","type":"limit","size":"1","price":"1.001"}
+```
+Generate the string to be signed
+
+```
+Message = '1540286476248POST/api/v1/spot/ccex/orders{"code":"LTC-BTC","side":"buy","type":"limit","size":"1","price":"1.001"}'
+```
+Then, the character to be signed is added with the private key parameters to generate the final character string to be signed.
+
+For example:
+
+```
+Signature = hmac(secretkey, Message, SHA256)
+```
+
+在使用前需要对于Signature进行base64编码
+
+```
+Signature = base64.encode(Signature.digest())
+```
+
+
+## <span id="a6">Request Process</span>
+
+The root URL for REST access：``` https://api.bikicoin.com ```
+
+###  <span id="a7">Request</span>
+All requests are based on Https protocol, contentType in the request header must be uniformly set as: ‘application/json’.
+
+**Request Process Descriptions**
+
+1、Request parameter: parameter encapsulation based on the port request.
+
+2、Submitting request parameter: submit the encapsulated parameter request to the server via POST/GET/PUT/DELETE or other methods.
+
+3、Server response: the server will first perform a security validation, then send back the requested data to the client in JSON format.
+
+4、Data processing: processing server response data.
+
+**Success**
+
+HTTP status code 200 indicates a successful response and may contain content. If the response contains content, it will appear in the corresponding returned content.
+
+**Common Error Code**
+
+- 400 Bad Request – Invalid request format
+
+- 401 Unauthorized – Invalid API Key
+
+- 403 Forbidden – You do not have access to the requested resource
+
+- 404 Not Found
+
+- 429 Too Many Requests
+
+- 500 Internal Server Error
+
+We had a problem with our server
+
+###  <span  id="a8">Pagination</span>
+
+All REST requests that return datasets use cursor-based pagination.
+
+Cursor-based pagination allows results to be obtained before and after the current page of the result and is well suited for real-time data. The subsequent requests can specify the direction of the requested data based on the current returned results, before and/or after it. The before and after cursors can be used by the response headers CB-BEFORE and CB-AFTER.
+
+**For example:**
+
+```GET /orders?before=2&limit=30```
+
+
+## <span id="a9">Standards and Specification</span>
+
+### <span id="b1">Timestamp</span> 
+Unless otherwise specified, all timestamps in APIs are returned in microseconds.
+
+The ACCESS-TIMESTAMP header must be the number of seconds since UTC's time Unix Epoch. Decimal values are allowed. Your timestamp must be within 30 seconds of the API service time, otherwise your request will be considered expired and rejected. If you think there is a large time difference between your server and the API server, then we recommend that you use the time point to check the API server time.
+
+###  <span id="b2">For example</span> 
+1524801032573
+
+###  <span id="b3">Numbers</span> 
+In order to maintain the accuracy of cross-platform, decimal numbers are returned as strings. We suggest that you might be better to convert the number to string when issuing the request to avoid truncation and precision errors. Integers (such as transaction number and sequence) do not need quotation marks.
+
+###  <span id="b4">Rate Limits</span>  
+When a rate limit is exceeded, a status of 429 Too Many Requests will be returned.
+
+REST API
+
+- Public interface: We limit the invocation of public interface via IP: up to 6 requests every 2s.
+
+- Private interface: We limit the invocation of private interface via user ID: up to 6 requests every 2s.
+
+- Special restrictions on specified interfaces are specified.
+
+---
+
+# <span id="b5"> API Reference</span>
+
+##  <span id="b6">open-api</span>
+
 ### <span id="1">Balance of assets</span>
 
 1. Interface address: /open/api/user/account
