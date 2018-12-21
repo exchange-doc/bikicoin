@@ -17,7 +17,7 @@
         - [数字](#b3)
         - [限流 - REST API](#b4)
 - [业务API参考](#b5)
-  - [open-api](#b6) ([Java-Demo](#open-api))
+  - [open-api](#b6) ([Java-Demo](#open-api-java))
     -   [资产余额](#1)
     -	[获取全部委托](#2)
     -	[获取全部成交记录](#3)
@@ -36,7 +36,7 @@
     -	[内部自成交接口-(saas专有)](#16)
     -	[查询系统支持的所有交易对及精度](#17)
     -	[获取用户资产以及充值记录](#18)
-  - [ws-api](#b7) ([Java-Demo](#ws-api))
+  - [ws-api](#b7) ([Java-Demo](#ws-api-java))
     -   [订阅-K线行情](#19)
     -   [订阅-前24小时行情](#20)
     -   [订阅-深度盘口（高频）](#21)
@@ -1425,7 +1425,7 @@ REST API
 
 
 ---
-## <span id="open-api">open-api Demo（java） </span>
+## <span id="open-api-java">open-api Demo（java） </span>
 
 
 ```
@@ -1600,7 +1600,7 @@ public class Main {
 
 
 ---
-## <span id="ws-api">ws-api Demo (java) </span>
+## <span id="ws-api-java">ws-api Demo (java) </span>
 
 
 ```

@@ -17,7 +17,7 @@
         - [Numbers](#b3)
         - [Rate Limits REST API](#b4)
 - [Spot API Reference](#b5)
-  - [open-api](#b6) ([Java-Demo](#open-api))
+  - [open-api](#b6) ([Java-Demo](#open-api-java))
     -   [Balance of the assets](#1)
     -	[Acquire full delegation](#2)
     -	[Obtain all transaction records](#3)
@@ -36,7 +36,7 @@
     -	[Internal Self-Transaction Interface-(saasProper)](#16)
     -	[All Transaction Pairs and Accuracy Supported by Query System](#17)
     -	[Get user assets and recharge records](#18)
-  - [ws-api](#b7) ([Java-Demo](#ws-api))
+  - [ws-api](#b7) ([Java-Demo](#ws-api-java))
     -   [Subscription - K Line Market](#19)
     -   [Subscription - market quotations in the last 24 hours](#20)
     -   [Subscription - Deep Port (High Frequency)](#21)
@@ -1432,7 +1432,7 @@ Return value:
 
 
 ---
-## <span id="open-api">open-api Demo（java） </span>
+## <span id="open-api-java">open-api Demo（java） </span>
 
 
 ```
@@ -1607,7 +1607,7 @@ public class Main {
 
 
 ---
-## <span id="ws-api">ws-api Demo (java) </span>
+## <span id="ws-api-java">ws-api Demo (java) </span>
 
 
 ```
