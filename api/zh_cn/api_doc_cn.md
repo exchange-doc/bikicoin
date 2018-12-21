@@ -1,6 +1,6 @@
 #  Bikicoin接口文档([English Docs](https://github.com/code-bikicoin/bikicoin/blob/master/api/us_en/api_doc_en.md))
 
-## 1. open-api目录 (例：www.bikicoin.com/exchange-open-api)
+## 1. open-api目录 (例：https://api.bikicoin.com/open/api/common/symbols)
 -   [调用demo](#open-api)
 -   [资产余额](#1)
 -	[获取全部委托](#2)
@@ -1288,7 +1288,7 @@ public class Main {
         params.put("sign", sign);
 
 /** http请求 */
-        String resultJson = get("https://www.bikicoin.com/exchange-open-api/open/api/get_trades?symbol=btcusdt", params);
+        String resultJson = get("https://api.bikicoin.com/open/api/get_trades?symbol=btcusdt", params);
         System.out.println(resultJson);
     }
 
