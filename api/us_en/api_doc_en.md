@@ -73,7 +73,7 @@ Developers are recommended to use REST API to proceed spot trading and withdrawa
 
 ## <span id="a2">Generate an API Key</span>
 
-Before signing any request, you must generate an API key via [BikiCoin’s official website ](https://www.bikicoin.com/index)CoinMex’s official website 【User Center】- 【API】. After generating the key, there are three things you must bear in mind:
+Before signing any request, you must generate an API key via [BikiCoin’s official website ](https://www.bikicoin.com/index【User Center】- 【API】. After generating the key, there are three things you must bear in mind:
 
 - API Key
  
